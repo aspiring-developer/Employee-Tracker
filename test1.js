@@ -9,24 +9,24 @@ const connection = mysql.createConnection({
   password: "Stanopal001$",
   database: "employee_tracker_db"
 });
-connection.connect(function (err) {
+connection.connect(err => {
   if (err) throw err;
   // calling "start()" function that gathers user prompt data
   start();
 });
 
 //gathering user prompt data and assigning actions 
-function start() {
+const start = () => {
   inquirer
     .prompt([
       {
         name: "userChoice",
         type: "list",
-        message: "Choose an action below.",
+        message: "What would you like to do?",
         choices: ["Add Department", "View Department", "Exit", "Add Role", "View Role", "Add Employee", "View Employee", "Update Role"]
       }
     ])
-    .then(function (answer) {
+    .then(answer => {
       // assigning different function calls to address user's response
       switch (answer.userChoice) {
         case "Add Department":
@@ -58,31 +58,34 @@ function start() {
 };
 
 // add department to the list
-function addDepartment() {
+const addDepartment = () => {
   inquirer
     .prompt([
-      {
-        name: "add_id",
-        type: "input",
-        message: "What is the department's ID?"
-      },
       {
         name: "add_department",
         type: "input",
         message: "What department do you want to add?"
+      },
+      {
+        name: "add_id",
+        type: "input",
+        message: "What is the department's ID?"
       }
 
     ]).then(answer => {
-      connection.query(`INSERT INTO department (id, dept_name) VALUES ('${answer.add_id}', '${answer.add_department}') `
-      )
-      start();
+      const query = `INSERT INTO department (dept_name, id) VALUES ('${answer.add_department}', '${answer.add_id}')`;
+      connection.query(query, (err, res) => {
+if (err) throw err;
+
+      }) 
+   start();
     });
-};
+ };
 
 // view departments in the list
-function viewDepartment() {
+const viewDepartment= () => {
   let userPrompt = "SELECT * FROM department";
-  connection.query(userPrompt, function (err, res) {
+  connection.query(userPrompt, (err, res) => {
     if (err) throw err;
     console.log(userPrompt);
   });
@@ -90,7 +93,7 @@ function viewDepartment() {
 };
 
 // add role to the employee
-function addRole() {
+const addRole = () => {
   inquirer
     .prompt([
       {
@@ -111,7 +114,7 @@ function addRole() {
     ])
     .then(answer => {
       const userAnswer = `INSERT INTO employee_role (title, salary, department_id) VALUES ('${answer.add_role}', '${answer.add_salary}', '${answer.add_departmentID}')`;
-      connection.query(userAnswer, function (err, res) {
+      connection.query(userAnswer, (err, res) => {
         if (err) throw err;
         console.log(`Added Roles:  ${answers.add_role}, ${answers.add_salary}, ${answers.add_departmentID} `);
         start();
@@ -120,8 +123,8 @@ function addRole() {
 };
 
 // view employee role
-function viewRole() {
-  connection.query("SELECT id, title FROM employee_role", function(err, res) {
+const viewRole = () => {
+  connection.query("SELECT id, title FROM employee_role", (err, res) => {
     if (err) throw err;
     console.log(res);
     viewEmployee();
@@ -129,7 +132,7 @@ function viewRole() {
 };
 
 // add employee to the list
-function addEmployee()  {
+const addEmployee = () => {
   inquirer
   .prompt([
     {
@@ -155,9 +158,9 @@ function addEmployee()  {
   ])
   .then(answer => {
     const userAnswer = `INSERT INTO employee_info (first_name, last_name, role_id, manager_id) VALUES ('${answer.firstName}', '${answer.lastName}', '${answer.roleID}', '${answer.managerID}')`;
-    connection.query(userAnswer, function(err, res) {
+    connection.query(userAnswer, (err, res) => {
       if (err) throw err;
-      console.log(`Added Employee's Info: ${answer.first-Name}, ${answer.lastName}, ${answer.roleID}, ${answer.managerID} `);
+      console.log(`Added Employee's Info: ${answer.first-Name}, ${answer.lastName}, ${answer.roleID}, ${answer.managerID}`);
       start();
     });
   });
@@ -165,8 +168,8 @@ function addEmployee()  {
 };
 
 // view employee list
-function viewEmployee()  {
-  connection.query("SELECT * FROM employee_info", function(err, res) {
+const viewEmployee = () => {
+  connection.query("SELECT * FROM employee_info", (err, res) => {
     if (err) throw err;
     console.log(res);
     start();
@@ -174,7 +177,7 @@ function viewEmployee()  {
 };
 
 // update employee role
-function updateRoll()  {
+const updateRoll = () => {
   inquirer
   .prompt([
     {
@@ -189,12 +192,14 @@ function updateRoll()  {
     }
   ])
   .then(answer => {
-    const userAnswer = `UPDATE employee_info SET role_id = ${answer.role_id} WHERE id = ${answer.employee_id}`;
-    connection.query(userAnswer, function(err, res) {
+    console.log("WORKING!!!!");
+    // const userAnswer = `UPDATE employee_info SET role_id ${answer.role_id} WHERE id = ${answer.employee_id}`;
+    connection.query(userAnswer, (err, res) => {
       if (err) throw err;
       console.log(`Previous ID was:  ${answer.employee_id}`);
       console.log(`New ID is:  ${answer.role_id}`);
-      start();
-    });
+     start();
+    }); 
+    
   });
 };
