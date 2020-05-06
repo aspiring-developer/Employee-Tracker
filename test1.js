@@ -161,7 +161,7 @@ const addEmployee = () => {
     const userAnswer = `INSERT INTO employee_info (first_name, last_name, role_id, manager_id) VALUES ('${answer.firstName}', '${answer.lastName}', '${answer.roleID}', '${answer.managerID}')`;
     connection.query(userAnswer, (err, res) => {
       if (err) throw err;
-      console.log(`Added Employee's Info: ${answer.first-Name}, ${answer.lastName}, ${answer.roleID}, ${answer.managerID}`);
+      console.log(`Added Employee's Info: ${answer.firstName}, ${answer.lastName}, ${answer.roleID}, ${answer.managerID}`);
       start();
     });
   });
@@ -191,14 +191,13 @@ const updateRoll = () => {
       name: "new_id",
       message: "What do you want the employee's new role ID be?"
     }
-  ])
-  .then(answer => {
+  ]).then(answer => {
     console.log("WORKING!!!!");
-   const userAnswer = `UPDATE employee_info SET role_id = ${answer.new_id} WHERE id = ${answer.current_id}`;
-    connection.query(userAnswer, (err, res) => {
+   const userAns = `UPDATE employee_info SET ${answer.new_id} WHERE ${answer.current_id}`;
+    connection.query(userAns, (err, res) => {
       if (err) throw err;
-      console.log(`Previous ID was:  ${answer.employee_id}`);
-      console.log(`New ID is:  ${answer.role_id}`);
+      console.log(`Previous ID was:  ${answer.current_id}`);
+      console.log(`New ID is:  ${answer.new_id}`);
      start();
     }); 
     
