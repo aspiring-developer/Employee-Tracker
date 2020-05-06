@@ -76,9 +76,9 @@ const addDepartment = () => {
       const query = `INSERT INTO department (dept_name, id) VALUES ('${answer.add_department}', '${answer.add_id}')`;
       connection.query(query, (err, res) => {
 if (err) throw err;
-
+ start();
       }) 
-   start();
+  
     });
  };
 
@@ -88,6 +88,7 @@ const viewDepartment= () => {
   connection.query(userPrompt, (err, res) => {
     if (err) throw err;
     console.log(userPrompt);
+    start();
   });
 
 };
@@ -182,18 +183,18 @@ const updateRoll = () => {
   .prompt([
     {
       type: "input",
-      name: "employee_id",
+      name: "current_id",
       message: "What is the employee's current role ID?"
     },
     {
       type: "input",
-      name: "role_id",
+      name: "new_id",
       message: "What do you want the employee's new role ID be?"
     }
   ])
   .then(answer => {
     console.log("WORKING!!!!");
-    // const userAnswer = `UPDATE employee_info SET role_id ${answer.role_id} WHERE id = ${answer.employee_id}`;
+   const userAnswer = `UPDATE employee_info SET role_id = ${answer.new_id} WHERE id = ${answer.current_id}`;
     connection.query(userAnswer, (err, res) => {
       if (err) throw err;
       console.log(`Previous ID was:  ${answer.employee_id}`);
