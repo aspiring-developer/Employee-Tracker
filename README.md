@@ -1,4 +1,4 @@
-![Title with Ascii character](./References_Screenshots_Etc/ascii-character.JPG)
+![Title with Ascii character](../References_Screenshots_Etc/ascii-character.JPG)
 
 # Employee-Tracker
 Employee Tracker App. Built with Node.js and MySQL database.
