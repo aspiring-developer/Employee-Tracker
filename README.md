@@ -1,4 +1,4 @@
-![Image description](References_Screenshots_Etc/ascii-character.JPG)
+![Title with Ascii character](References_Screenshots_Etc/ascii-character.JPG)
 
 # Employee-Tracker
 Employee Tracker App. Built with Node.js and MySQL database.
@@ -9,7 +9,7 @@ Employee Tracker App. Built with Node.js and MySQL database.
 - View departments, role, employees
 - Update employee role
 - 
-![Image description](References_Screenshots_Etc/employee-tracker.gif)
+![App usage Gif](References_Screenshots_Etc/employee-tracker.gif)
 
 ### Usage: 
 - Use a terminal (command-line-Interface) to open the app.js file 
