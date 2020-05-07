@@ -26,6 +26,8 @@ Employee Tracker App. Built with Node.js and MySQL database.
 - No contribution required
 
 #### GitHub repository and deployed links:
+https://github.com/ssh1sharma/Employee-Tracker-MySQL-NodeJS
+
 
 
 
