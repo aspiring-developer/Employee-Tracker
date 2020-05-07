@@ -8,6 +8,8 @@ Employee Tracker App. Built with Node.js and MySQL database.
 - Add departments, role, employees
 - View departments, role, employees
 - Update employee role
+- 
+![Image description](References_Screenshots_Etc/employee-tracker.gif)
 
 ### Usage: 
 - Use a terminal (command-line-Interface) to open the app.js file 
