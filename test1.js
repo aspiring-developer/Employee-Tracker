@@ -47,7 +47,7 @@ const start = () => {
         case "View Employee":
           viewEmployee();
           break;
-        case "Update Roll":
+        case "Update Role":
           updateRoll();
           break;
         case "Exit":
@@ -87,7 +87,7 @@ const viewDepartment= () => {
   let userPrompt = "SELECT * FROM department";
   connection.query(userPrompt, (err, res) => {
     if (err) throw err;
-    console.log(userPrompt);
+  console.log(res);
     start();
   });
 
@@ -117,7 +117,7 @@ const addRole = () => {
       const userAnswer = `INSERT INTO employee_role (title, salary, department_id) VALUES ('${answer.add_role}', '${answer.add_salary}', '${answer.add_departmentID}')`;
       connection.query(userAnswer, (err, res) => {
         if (err) throw err;
-        console.log(`Added Roles:  ${answers.add_role}, ${answers.add_salary}, ${answers.add_departmentID} `);
+        console.log(`Added Roles:  ${answer.add_role}, ${answer.add_salary}, ${answer.add_departmentID} `);
         start();
       });
     });
@@ -183,23 +183,27 @@ const updateRoll = () => {
   .prompt([
     {
       type: "input",
-      name: "current_id",
-      message: "What is the employee's current role ID?"
+      name: "current_role",
+      message: "What is the employee's current role?",
+      // options: ["Manager", "Engineer", "Accountant", "Lawyer"]
     },
     {
       type: "input",
-      name: "new_id",
-      message: "What do you want the employee's new role ID be?"
+      name: "new_role",
+      message: "What do you want the employee's new role be?"
     }
-  ]).then(answer => {
-    console.log("WORKING!!!!");
-   const userAns = `UPDATE employee_info SET ${answer.new_id} WHERE ${answer.current_id}`;
+    
+  ])
+  .then(answer => {
+    let userAns = `UPDATE employee_role, title SET = ${answer.new_role} WHERE title = ${answer.current_role}`;
     connection.query(userAns, (err, res) => {
       if (err) throw err;
       console.log(`Previous ID was:  ${answer.current_id}`);
       console.log(`New ID is:  ${answer.new_id}`);
+      
      start();
     }); 
-    
+   
   });
 };
+
