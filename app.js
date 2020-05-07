@@ -183,23 +183,22 @@ const updateRoll = () => {
   .prompt([
     {
       type: "input",
-      name: "current_role",
-      message: "What is the employee's current role?",
-      // options: ["Manager", "Engineer", "Accountant", "Lawyer"]
-    },
+      name: "current_id", 
+      message: "What is the employee's current id?" //Need a current id number from the employee_role table // options: 1, 2, 3, 4, and more if previously been added.
+          },
     {
       type: "input",
-      name: "new_role",
-      message: "What do you want the employee's new role be?"
+      name: "new_title",
+      message: "What do you want the employee's new title be?" // options: ["Manager", "Engineer", "Accountant", "Lawyer"]
     }
     
   ])
   .then(answer => {
-    let userAns = `UPDATE employee_role, title SET = ${answer.new_role} WHERE title = ${answer.current_role}`;
+    let userAns = `UPDATE employee_role SET title = "${answer.new_title}" WHERE id = ${answer.current_id}`;
     connection.query(userAns, (err, res) => {
       if (err) throw err;
       console.log(`Previous ID was:  ${answer.current_id}`);
-      console.log(`New ID is:  ${answer.new_id}`);
+      console.log(`New ID is:  ${answer.new_title}`);
       
      start();
     }); 
