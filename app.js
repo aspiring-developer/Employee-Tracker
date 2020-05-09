@@ -130,7 +130,7 @@ const viewRole = () => {
   connection.query("SELECT id, title FROM employee_role", (err, res) => {
     if (err) throw err;
     console.table(res);
-    viewEmployee();
+    start();
   });
 };
 
@@ -186,7 +186,7 @@ const updateRoll = () => {
     {
       type: "input",
       name: "current_id", 
-      message: "What is the employee's current id?" //Need a current id number from the employee_role table // options: 1, 2, 3, 4, and more if previously been added.
+      message: "Employee's current id (use one existing ID):" //Need a current id number from the employee_role table // options: 1, 2, 3, 4, and more if previously been added.
           },
     {
       type: "input",
@@ -207,4 +207,3 @@ const updateRoll = () => {
    
   });
 };
-
