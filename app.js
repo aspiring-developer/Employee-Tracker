@@ -1,5 +1,7 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+// const consoleTable = require("console.table");
+//## NOTE: The built-in console.table looking better to me, so I commented the imported external console.table. It has been installed, so if needed to check, uncommenting will activate it!
 
 // create connection information to mysql server and sql database
 const connection = mysql.createConnection({
@@ -87,7 +89,7 @@ const viewDepartment= () => {
   let userPrompt = "SELECT * FROM department";
   connection.query(userPrompt, (err, res) => {
     if (err) throw err;
-  console.log(res);
+  console.table(res);
     start();
   });
 
@@ -127,7 +129,7 @@ const addRole = () => {
 const viewRole = () => {
   connection.query("SELECT id, title FROM employee_role", (err, res) => {
     if (err) throw err;
-    console.log(res);
+    console.table(res);
     viewEmployee();
   });
 };
@@ -161,8 +163,8 @@ const addEmployee = () => {
     const userAnswer = `INSERT INTO employee_info (first_name, last_name, role_id, manager_id) VALUES ('${answer.firstName}', '${answer.lastName}', '${answer.roleID}', '${answer.managerID}')`;
     connection.query(userAnswer, (err, res) => {
       if (err) throw err;
-      console.log(`Added Employee's Info: ${answer.firstName}, ${answer.lastName}, ${answer.roleID}, ${answer.managerID}`);
-      start();
+      console.table(`Added Employee's Info: ${answer.firstName}, ${answer.lastName}, ${answer.roleID}, ${answer.managerID}`);
+     start();
     });
   });
 
@@ -172,7 +174,7 @@ const addEmployee = () => {
 const viewEmployee = () => {
   connection.query("SELECT * FROM employee_info", (err, res) => {
     if (err) throw err;
-    console.log(res);
+    console.table(res);
     start();
   });
 };
@@ -189,7 +191,7 @@ const updateRoll = () => {
     {
       type: "input",
       name: "new_title",
-      message: "What do you want the employee's new title be?" // options: ["Manager", "Engineer", "Accountant", "Lawyer"]
+      message: "What do you want the employee's new title be?" // Existing titles: ["Manager", "Engineer", "Accountant", "Lawyer"]
     }
     
   ])
@@ -197,8 +199,8 @@ const updateRoll = () => {
     let userAns = `UPDATE employee_role SET title = "${answer.new_title}" WHERE id = ${answer.current_id}`;
     connection.query(userAns, (err, res) => {
       if (err) throw err;
-      console.log(`Previous ID was:  ${answer.current_id}`);
-      console.log(`New ID is:  ${answer.new_title}`);
+      console.log(`Targeted ID was:  ${answer.current_id}`);
+      console.log(`New Title given to the ID:  ${answer.new_title}`);
       
      start();
     }); 
